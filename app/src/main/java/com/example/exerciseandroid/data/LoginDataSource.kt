@@ -1,6 +1,5 @@
 package com.example.exerciseandroid.data
 
-import android.util.Log
 import com.example.exerciseandroid.data.model.LoggedInUser
 import java.io.IOException
 
