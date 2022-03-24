@@ -1,17 +1,16 @@
 package com.example.exerciseandroid.helloWorld
 
+import android.annotation.SuppressLint
 import android.content.Context
-import android.content.DialogInterface
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.BaseAdapter
 import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.example.exerciseandroid.R
 
 class HelloWorld : AppCompatActivity() {
@@ -32,15 +31,12 @@ class HelloWorld : AppCompatActivity() {
             return p0.toLong()
         }
 
+        @SuppressLint("ViewHolder")
         override fun getView(p0: Int, p1: View?, parent: ViewGroup?): View {
             val rowView = inflater.inflate(R.layout.time_data, parent, false)
             (rowView.findViewById(R.id.textView2) as TextView).text = getItem(p0).time
             (rowView.findViewById(R.id.textView3) as TextView).text = getItem(p0).hi.toString()
             return rowView
-        }
-
-        fun addData(a: String, hi: Int) {
-            items.add(TimeData(a, hi))
         }
     }
 
@@ -59,15 +55,19 @@ class HelloWorld : AppCompatActivity() {
         val adapter = MyAdapter(this, a)
         mListView.adapter = adapter
 
-        mListView.setOnItemClickListener { adapterView, view, i, l ->
-            AlertDialog.Builder(this)
+        mListView.setOnItemClickListener { _, _, i, _ ->
+            val dialog = AlertDialog.Builder(this, R.style.MyTheme)
+
+            dialog
                 .setTitle(a[i].time)
-                .setNegativeButton("abc", DialogInterface.OnClickListener { dialogInterface, i ->
+                .setPositiveButton("abc") { _, _ ->
                     a.add(TimeData("aa", b++))
                     adapter.notifyDataSetChanged()
-                })
+                }
+                .setPositiveButton("OK", null)
                 .create()
-                .show()
+
+            dialog.show()
         }
     }
 }
