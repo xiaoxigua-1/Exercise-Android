@@ -13,6 +13,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.exerciseandroid.R
 
+@Suppress("DEPRECATION")
 class HelloWorld : AppCompatActivity() {
     data class TimeData(val time: String, val hi: Int)
 
@@ -40,6 +41,7 @@ class HelloWorld : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hello_world)
@@ -57,14 +59,14 @@ class HelloWorld : AppCompatActivity() {
 
         mListView.setOnItemClickListener { _, _, i, _ ->
             val dialog = AlertDialog.Builder(this, R.style.MyTheme)
-
-            dialog
-                .setTitle(a[i].time)
+            val view = LayoutInflater.from(this).inflate(R.layout.test, null)
+            dialog.setTitle(a[i].time)
                 .setPositiveButton("abc") { _, _ ->
                     a.add(TimeData("aa", b++))
                     adapter.notifyDataSetChanged()
                 }
                 .setPositiveButton("OK", null)
+                .setView(view, 40, 20, 40, 20)
                 .create()
 
             dialog.show()

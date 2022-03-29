@@ -5,6 +5,9 @@
       <map>
         <entry key="app/src/main/res/drawable/input_shape.xml" value="0.1325" />
         <entry key="app/src/main/res/drawable/login_button.xml" value="0.1325" />
+        <entry key="app/src/main/res/drawable/progess.xml" value="0.2285" />
+        <entry key="app/src/main/res/drawable/progess_fill.xml" value="0.2285" />
+        <entry key="app/src/main/res/drawable/progress.xml" value="0.2285" />
         <entry key="app/src/main/res/drawable/rounded_edittext.xml" value="0.2145" />
         <entry key="app/src/main/res/drawable/shape.xml" value="0.2145" />
         <entry key="app/src/main/res/layout-w1240dp/activity_login.xml" value="0.22958500669344042" />
@@ -12,6 +15,7 @@
         <entry key="app/src/main/res/layout/activity_hello_world.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2694746376811594" />
+        <entry key="app/src/main/res/layout/test.xml" value="0.2755208333333333" />
         <entry key="app/src/main/res/layout/time_data.xml" value="0.25" />
       </map>
     </option>
