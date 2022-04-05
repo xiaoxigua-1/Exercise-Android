@@ -11,6 +11,7 @@
         android:layout_height="342dp"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="4dp"
+        android:scrollbars="none"
         tools:ignore="MissingConstraints">
 
         <LinearLayout
