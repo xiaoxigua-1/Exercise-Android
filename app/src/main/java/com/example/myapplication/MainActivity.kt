@@ -3,6 +3,7 @@ package com.example.myapplication
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
+import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import androidx.appcompat.app.AppCompatActivity
@@ -17,20 +18,22 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("Range")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
         val db = MySQLite(this).writableDatabase
         val list = mutableListOf("")
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, list)
-        setContentView(R.layout.activity_main)
         val cursor = db.query("A", arrayOf("a"), "", null, null, null, null)
+
         with(cursor) {
             while (moveToNext()) {
                 val item = getString(getColumnIndexOrThrow("a"))
                 list.add(item)
             }
         }
+
         findViewById<Button>(R.id.button_123).setOnClickListener {
             val text = findViewById<EditText>(R.id.editTextTextPersonName).text.toString()
-            Log.d("text", text.toString())
+            Log.d("text", text)
             val values = ContentValues().apply {
                 put("a", text)
             }
@@ -40,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.button).setOnClickListener {
-
+            startActivity(Intent(this, MainActivity2::class.java))
         }
 
         val listView = findViewById<ListView>(R.id.list_view_1)
@@ -69,7 +72,5 @@ class MySQLite(context: Context) : SQLiteOpenHelper(context, "abc.db", null, 1) 
 
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
         TODO("Not yet implemented")
-
     }
-
 }
