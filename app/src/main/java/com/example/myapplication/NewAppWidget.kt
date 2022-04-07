@@ -3,7 +3,10 @@ package com.example.myapplication
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
+import android.content.Intent
+import android.widget.ArrayAdapter
 import android.widget.RemoteViews
+import android.widget.RemoteViewsService
 
 /**
  * Implementation of App Widget functionality.
@@ -34,11 +37,57 @@ internal fun updateAppWidget(
     appWidgetManager: AppWidgetManager,
     appWidgetId: Int
 ) {
-    val widgetText = context.getString(R.string.appwidget_text)
+    val adapter = ArrayAdapter(context, android.R.layout.simple_expandable_list_item_1, listOf(1))
     // Construct the RemoteViews object
     val views = RemoteViews(context.packageName, R.layout.new_app_widget)
-    views.setTextViewText(R.id.appwidget_text, widgetText)
+
+    views.setRemoteAdapter()
 
     // Instruct the widget manager to update the widget
     appWidgetManager.updateAppWidget(appWidgetId, views)
+}
+
+class A : RemoteViewsService() {
+    override fun onGetViewFactory(intent: Intent): RemoteViewsFactory {
+        TODO("Not yet implemented")
+    }
+}
+
+class MyRemoteViewFactory(intent: Intent) : RemoteViewsService.RemoteViewsFactory {
+    override fun onCreate() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onDataSetChanged() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onDestroy() {
+        TODO("Not yet implemented")
+    }
+
+    override fun getCount(): Int {
+        TODO("Not yet implemented")
+    }
+
+    override fun getViewAt(p0: Int): RemoteViews {
+        TODO("Not yet implemented")
+    }
+
+    override fun getLoadingView(): RemoteViews {
+        TODO("Not yet implemented")
+    }
+
+    override fun getViewTypeCount(): Int {
+        TODO("Not yet implemented")
+    }
+
+    override fun getItemId(p0: Int): Long {
+        TODO("Not yet implemented")
+    }
+
+    override fun hasStableIds(): Boolean {
+        TODO("Not yet implemented")
+    }
+
 }
