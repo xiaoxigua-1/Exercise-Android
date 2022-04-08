@@ -2,12 +2,13 @@ package com.example.myapplication
 
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import android.widget.ArrayAdapter
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
+
 
 /**
  * Implementation of App Widget functionality.
@@ -31,6 +32,16 @@ class NewAppWidget : AppWidgetProvider() {
     override fun onDisabled(context: Context) {
         // Enter relevant functionality for when the last widget is disabled
     }
+
+    override fun onReceive(context: Context, intent: Intent) {
+        val action = intent.action
+        if (action == AppWidgetManager.ACTION_APPWIDGET_UPDATE) {
+            // refresh all your widgets
+            val mgr = AppWidgetManager.getInstance(context)
+            val cn = ComponentName(context, NewAppWidget::class.java)
+            mgr.notifyAppWidgetViewDataChanged(mgr.getAppWidgetIds(cn), R.id.list_view_1)
+        }
+    }
 }
 
 internal fun updateAppWidget(
@@ -53,18 +64,25 @@ class A : RemoteViewsService() {
     override fun onGetViewFactory(intent: Intent): RemoteViewsFactory {
         return MyRemoteViewFactory(applicationContext)
     }
+
 }
 
 class MyRemoteViewFactory(val context: Context) : RemoteViewsService.RemoteViewsFactory {
-    val list = listOf("123", "321", "asdasd")
+    val list: MutableList<String> = mutableListOf()
     val ID_CONSTANT = 0x0101010
 
     override fun onCreate() {
-//        TODO("Not yet implemented")
+        val db = MySQLite(context).writableDatabase
+        val cursor = db.query("A", arrayOf("a"), "", null, null, null, null)
+        with(cursor) {
+            while (moveToNext()) {
+                list.add(getString(getColumnIndexOrThrow("a")))
+            }
+        }
     }
 
     override fun onDataSetChanged() {
-//        TODO("Not yet implemented")
+        Log.d("test", "test")
     }
 
     override fun onDestroy() {
@@ -79,7 +97,6 @@ class MyRemoteViewFactory(val context: Context) : RemoteViewsService.RemoteViews
         val views = RemoteViews(context.packageName, R.layout.item)
 
         views.setTextViewText(R.id.widgetItemTaskNameLabel, list[p0])
-        Log.d("a", list[p0])
         return views
     }
 

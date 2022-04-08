@@ -1,18 +1,21 @@
 package com.example.myapplication
 
 import android.annotation.SuppressLint
+import android.appwidget.AppWidgetManager
+import android.content.ComponentName
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.BaseColumns
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
+
 
 class MainActivity : AppCompatActivity() {
     @SuppressLint("Range")
@@ -40,6 +43,9 @@ class MainActivity : AppCompatActivity() {
             db.insert("A", null, values)
             list.add(text)
             adapter.notifyDataSetChanged()
+            val intent = Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE)
+            intent.component = ComponentName(this, NewAppWidget::class.java)
+            sendBroadcast(intent)
         }
 
         findViewById<Button>(R.id.button).setOnClickListener {
