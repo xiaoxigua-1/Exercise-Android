@@ -4,6 +4,7 @@ import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
@@ -37,57 +38,65 @@ internal fun updateAppWidget(
     appWidgetManager: AppWidgetManager,
     appWidgetId: Int
 ) {
-    val adapter = ArrayAdapter(context, android.R.layout.simple_expandable_list_item_1, listOf(1))
     // Construct the RemoteViews object
     val views = RemoteViews(context.packageName, R.layout.new_app_widget)
+    val intent = Intent(context, A::class.java)
+    intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
 
-    views.setRemoteAdapter()
+    views.setRemoteAdapter(R.id.list_view_1, intent)
 
-    // Instruct the widget manager to update the widget
+    // Instruct the widget manager to   update the widget
     appWidgetManager.updateAppWidget(appWidgetId, views)
 }
 
 class A : RemoteViewsService() {
     override fun onGetViewFactory(intent: Intent): RemoteViewsFactory {
-        TODO("Not yet implemented")
+        return MyRemoteViewFactory(applicationContext)
     }
 }
 
-class MyRemoteViewFactory(intent: Intent) : RemoteViewsService.RemoteViewsFactory {
+class MyRemoteViewFactory(val context: Context) : RemoteViewsService.RemoteViewsFactory {
+    val list = listOf("123", "321", "asdasd")
+    val ID_CONSTANT = 0x0101010
+
     override fun onCreate() {
-        TODO("Not yet implemented")
+//        TODO("Not yet implemented")
     }
 
     override fun onDataSetChanged() {
-        TODO("Not yet implemented")
+//        TODO("Not yet implemented")
     }
 
     override fun onDestroy() {
-        TODO("Not yet implemented")
+//        TODO("Not yet implemented")
     }
 
     override fun getCount(): Int {
-        TODO("Not yet implemented")
+        return list.size
     }
 
     override fun getViewAt(p0: Int): RemoteViews {
-        TODO("Not yet implemented")
+        val views = RemoteViews(context.packageName, R.layout.item)
+
+        views.setTextViewText(R.id.widgetItemTaskNameLabel, list[p0])
+        Log.d("a", list[p0])
+        return views
     }
 
-    override fun getLoadingView(): RemoteViews {
-        TODO("Not yet implemented")
+    override fun getLoadingView(): RemoteViews? {
+        return null
     }
 
     override fun getViewTypeCount(): Int {
-        TODO("Not yet implemented")
+        return 1
     }
 
-    override fun getItemId(p0: Int): Long {
-        TODO("Not yet implemented")
+    override fun getItemId(pos: Int): Long {
+        return (ID_CONSTANT + pos).toLong()
     }
 
     override fun hasStableIds(): Boolean {
-        TODO("Not yet implemented")
+        return true
     }
 
 }

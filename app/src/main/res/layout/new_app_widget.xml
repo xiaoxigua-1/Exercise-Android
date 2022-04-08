@@ -5,6 +5,8 @@
     android:padding="@dimen/widget_margin"
     android:theme="@style/Theme.MyApplication.AppWidgetContainer">
     <ListView
+        android:id="@+id/list_view_1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        />
 </RelativeLayout>

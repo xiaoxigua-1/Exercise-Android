@@ -70,7 +70,7 @@ class MySQLite(context: Context) : SQLiteOpenHelper(context, "abc.db", null, 1) 
         db.execSQL("CREATE TABLE A(a TEXT, ${BaseColumns._ID} INTEGER PRIMARY KEY)")
     }
 
-    override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
-        TODO("Not yet implemented")
+    override fun onUpgrade(db: SQLiteDatabase, p1: Int, p2: Int) {
+//        db.execSQL("DROP")
     }
 }
