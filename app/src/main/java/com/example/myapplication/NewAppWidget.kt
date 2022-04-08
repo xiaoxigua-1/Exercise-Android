@@ -41,6 +41,8 @@ class NewAppWidget : AppWidgetProvider() {
             val cn = ComponentName(context, NewAppWidget::class.java)
             mgr.notifyAppWidgetViewDataChanged(mgr.getAppWidgetIds(cn), R.id.list_view_1)
         }
+
+        super.onReceive(context, intent)
     }
 }
 
@@ -55,7 +57,7 @@ internal fun updateAppWidget(
     intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
 
     views.setRemoteAdapter(R.id.list_view_1, intent)
-
+    Log.v("a", "")
     // Instruct the widget manager to   update the widget
     appWidgetManager.updateAppWidget(appWidgetId, views)
 }
@@ -77,6 +79,7 @@ class MyRemoteViewFactory(val context: Context) : RemoteViewsService.RemoteViews
         with(cursor) {
             while (moveToNext()) {
                 list.add(getString(getColumnIndexOrThrow("a")))
+                Log.v("a", getString(getColumnIndexOrThrow("a")))
             }
         }
     }
