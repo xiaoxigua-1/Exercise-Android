@@ -40,6 +40,7 @@ class NewAppWidget : AppWidgetProvider() {
             val mgr = AppWidgetManager.getInstance(context)
             val cn = ComponentName(context, NewAppWidget::class.java)
             mgr.notifyAppWidgetViewDataChanged(mgr.getAppWidgetIds(cn), R.id.list_view_1)
+            Log.v("a", "abc")
         }
 
         super.onReceive(context, intent)
@@ -54,10 +55,9 @@ internal fun updateAppWidget(
     // Construct the RemoteViews object
     val views = RemoteViews(context.packageName, R.layout.new_app_widget)
     val intent = Intent(context, A::class.java)
-    intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
+//    intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
 
     views.setRemoteAdapter(R.id.list_view_1, intent)
-    Log.v("a", "")
     // Instruct the widget manager to   update the widget
     appWidgetManager.updateAppWidget(appWidgetId, views)
 }
@@ -66,14 +66,14 @@ class A : RemoteViewsService() {
     override fun onGetViewFactory(intent: Intent): RemoteViewsFactory {
         return MyRemoteViewFactory(applicationContext)
     }
-
 }
 
-class MyRemoteViewFactory(val context: Context) : RemoteViewsService.RemoteViewsFactory {
-    val list: MutableList<String> = mutableListOf()
-    val ID_CONSTANT = 0x0101010
+class MyRemoteViewFactory(private val context: Context) : RemoteViewsService.RemoteViewsFactory {
+    private var list: MutableList<String> = mutableListOf()
+    private val ID_CONSTANT = 0x0101010
 
     override fun onCreate() {
+        list = mutableListOf()
         val db = MySQLite(context).writableDatabase
         val cursor = db.query("A", arrayOf("a"), "", null, null, null, null)
         with(cursor) {
@@ -85,7 +85,7 @@ class MyRemoteViewFactory(val context: Context) : RemoteViewsService.RemoteViews
     }
 
     override fun onDataSetChanged() {
-        Log.d("test", "test")
+        onCreate()
     }
 
     override fun onDestroy() {
@@ -118,5 +118,4 @@ class MyRemoteViewFactory(val context: Context) : RemoteViewsService.RemoteViews
     override fun hasStableIds(): Boolean {
         return true
     }
-
 }
