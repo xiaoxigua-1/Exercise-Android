@@ -5,7 +5,6 @@ import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 
@@ -64,7 +63,6 @@ class A : RemoteViewsService() {
     override fun onGetViewFactory(intent: Intent): RemoteViewsFactory {
         return MyRemoteViewFactory(applicationContext)
     }
-
 }
 
 class MyRemoteViewFactory(val context: Context) : RemoteViewsService.RemoteViewsFactory {
@@ -82,7 +80,6 @@ class MyRemoteViewFactory(val context: Context) : RemoteViewsService.RemoteViews
     }
 
     override fun onDataSetChanged() {
-        Log.d("test", "test")
     }
 
     override fun onDestroy() {

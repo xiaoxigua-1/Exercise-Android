@@ -54,6 +54,18 @@ class MainActivity : AppCompatActivity() {
 
         val listView = findViewById<ListView>(R.id.list_view_1)
         listView.adapter = adapter
+        listView.setOnItemClickListener { _, _, i, _ ->
+            db.delete("A", "a = ?", arrayOf(list[i]))
+            list.removeAt(i)
+            adapter.notifyDataSetChanged()
+            val intent = Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE)
+            intent.component = ComponentName(this, NewAppWidget::class.java)
+            sendBroadcast(intent)
+        }
+
+        findViewById<Button>(R.id.button).setOnClickListener {
+            startActivity(Intent(this, MainActivity2::class.java))
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -71,7 +83,7 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-class MySQLite(context: Context) : SQLiteOpenHelper(context, "abc.db", null, 1) {
+class MySQLite(context: Context) : SQLiteOpenHelper(context, "abcd.db", null, 1) {
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL("CREATE TABLE A(a TEXT, ${BaseColumns._ID} INTEGER PRIMARY KEY)")
     }

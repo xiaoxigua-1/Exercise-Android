@@ -28,4 +28,10 @@
         <!-- Apply padding to avoid the content of the widget colliding with the rounded corners -->
         <item name="appWidgetPadding">16dp</item>
     </style>
+
+    <style name="alterStyle" parent="ThemeOverlay.AppCompat.Dialog.Alert">
+        <item name="android:background">
+            @drawable/test
+        </item>
+    </style>
 </resources>
