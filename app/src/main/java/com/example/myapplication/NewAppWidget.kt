@@ -5,6 +5,7 @@ import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 
@@ -84,10 +85,7 @@ class MyRemoteViewFactory(private val context: Context) : RemoteViewsService.Rem
     }
 
     override fun onDataSetChanged() {
-<<<<<<< HEAD
-=======
         onCreate()
->>>>>>> 5bceec697e1acddc8674f4a58fbe41024f16e2ba
     }
 
     override fun onDestroy() {

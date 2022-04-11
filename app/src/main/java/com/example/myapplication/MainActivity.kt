@@ -62,13 +62,10 @@ class MainActivity : AppCompatActivity() {
             intent.component = ComponentName(this, NewAppWidget::class.java)
             sendBroadcast(intent)
         }
-<<<<<<< HEAD
 
         findViewById<Button>(R.id.button).setOnClickListener {
             startActivity(Intent(this, MainActivity2::class.java))
         }
-=======
->>>>>>> 5bceec697e1acddc8674f4a58fbe41024f16e2ba
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
