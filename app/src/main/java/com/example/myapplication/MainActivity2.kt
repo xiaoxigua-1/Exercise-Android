@@ -4,7 +4,9 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
+import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
@@ -21,10 +23,11 @@ class MainActivity2 : AppCompatActivity() {
                 .setView(view)
                 .show()
             view.findViewById<Button>(R.id.button3).setOnClickListener {
+                val checkId = view.findViewById<RadioGroup>(R.id.radioGroup).checkedRadioButtonId
+                val text = view.findViewById<RadioButton>(checkId).text.toString()
+                Log.v("text", text)
+                findViewById<TextView>(R.id.textView2).text = text
                 alert.dismiss()
-            }
-            view.findViewById<RadioGroup>(R.id.radioGroup).setOnCheckedChangeListener { radioGroup, i ->
-                findViewById<TextView>(R.id.textView).text = i.toString()
             }
             alert.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         }
