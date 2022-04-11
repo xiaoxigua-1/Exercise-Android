@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
-import com.example.myapplication.databinding.ActivityMainBinding
 
 
 class MainActivity2 : AppCompatActivity() {
@@ -15,9 +14,13 @@ class MainActivity2 : AppCompatActivity() {
         setContentView(R.layout.activity_main2)
 
         findViewById<Button>(R.id.button2).setOnClickListener {
+            val view = layoutInflater.inflate(R.layout.alert, null)
             val alert = AlertDialog.Builder(this)
-                .setView(R.layout.alert)
+                .setView(view)
                 .show()
+            view.findViewById<Button>(R.id.button3).setOnClickListener {
+                alert.dismiss()
+            }
             alert.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         }
     }
