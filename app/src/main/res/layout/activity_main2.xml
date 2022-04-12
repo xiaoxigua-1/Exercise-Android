@@ -16,17 +16,17 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="318dp">
 
             <FrameLayout
                 android:layout_width="415dp"
-                android:layout_height="343dp"
+                android:layout_height="318dp"
                 tools:layout_editor_absoluteX="-2dp"
                 tools:layout_editor_absoluteY="-2dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_width="405dp"
+                    android:layout_height="318dp">
 
                     <FrameLayout
                         android:layout_width="248dp"
@@ -87,13 +87,13 @@
 
             <FrameLayout
                 android:layout_width="415dp"
-                android:layout_height="343dp"
+                android:layout_height="318dp"
                 tools:layout_editor_absoluteX="-2dp"
                 tools:layout_editor_absoluteY="-2dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_width="415dp"
+                    android:layout_height="318dp">
 
                     <FrameLayout
                         android:layout_width="248dp"
@@ -153,13 +153,13 @@
 
             <FrameLayout
                 android:layout_width="415dp"
-                android:layout_height="343dp"
+                android:layout_height="318dp"
                 tools:layout_editor_absoluteX="-2dp"
                 tools:layout_editor_absoluteY="-2dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="318dp">
 
                     <FrameLayout
                         android:layout_width="248dp"

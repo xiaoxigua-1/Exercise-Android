@@ -6,7 +6,8 @@
         <entry key="app/src/main/res/drawable/background.xml" value="0.136" />
         <entry key="app/src/main/res/drawable/ic_baseline_check_24.xml" value="0.136" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.333786231884058" />
-        <entry key="app/src/main/res/layout/activity_main2.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_main2.xml" value="0.2680890538033395" />
+        <entry key="app/src/main/res/layout/activity_main3.xml" value="0.1816123188405797" />
       </map>
     </option>
   </component>
@@ -15,5 +16,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.33" />
+      </ProjectState>
+    </option>
   </component>
 </project>
