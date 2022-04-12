@@ -16,16 +16,16 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="318dp">
+            android:layout_height="wrap_content">
 
             <FrameLayout
-                android:layout_width="415dp"
+                android:layout_width="393dp"
                 android:layout_height="318dp"
                 tools:layout_editor_absoluteX="-2dp"
                 tools:layout_editor_absoluteY="-2dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="405dp"
+                    android:layout_width="393dp"
                     android:layout_height="318dp">
 
                     <FrameLayout
@@ -86,13 +86,13 @@
 
 
             <FrameLayout
-                android:layout_width="415dp"
+                android:layout_width="393dp"
                 android:layout_height="318dp"
                 tools:layout_editor_absoluteX="-2dp"
                 tools:layout_editor_absoluteY="-2dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="415dp"
+                    android:layout_width="393dp"
                     android:layout_height="318dp">
 
                     <FrameLayout
@@ -152,7 +152,7 @@
             </FrameLayout>
 
             <FrameLayout
-                android:layout_width="415dp"
+                android:layout_width="393dp"
                 android:layout_height="318dp"
                 tools:layout_editor_absoluteX="-2dp"
                 tools:layout_editor_absoluteY="-2dp">
@@ -276,8 +276,8 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_marginTop="10dp"
-        android:orientation="horizontal"
         android:background="#018F14"
+        android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
@@ -350,8 +350,8 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_marginTop="100dp"
-        android:orientation="horizontal"
         android:background="#C5DA07"
+        android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
@@ -423,8 +423,8 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_marginTop="190dp"
-        android:orientation="horizontal"
         android:background="#011E87"
+        android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
