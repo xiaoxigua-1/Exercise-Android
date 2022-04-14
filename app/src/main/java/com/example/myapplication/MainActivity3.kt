@@ -24,7 +24,7 @@ class MainActivity3 : AppCompatActivity() {
 
         val db = MySQL(this).writableDatabase
         val dataList = mutableListOf<Data>()
-        val adapter = MyAdapter(this, dataList)
+        val adapter = MyAdapter(this, dataList, db)
         val listView = findViewById<ListView>(R.id.listView)
         val addButton = findViewById<Button>(R.id.button4)
         val clearButton = findViewById<Button>(R.id.button3)
@@ -42,14 +42,14 @@ class MainActivity3 : AppCompatActivity() {
 
                 dataList.add(Data(code, date, time, timeA, id))
                 adapter.notifyDataSetChanged()
-                Log.v("a", code.toString())
+                Log.v("a", id.toString())
             }
         }
         addButton.setOnClickListener {
             val view = layoutInflater.inflate(R.layout.adapter, null)
-            val codeView = view.findViewById<EditText>(R.id.editTextTextPersonName2)
+            val codeView = view.findViewById<EditText>(R.id.editTextTextPersonName4)
             val dateView = view.findViewById<EditText>(R.id.editTextTextPersonName3)
-            val timeView = view.findViewById<EditText>(R.id.editTextTextPersonName4)
+            val timeView = view.findViewById<EditText>(R.id.editTextTextPersonName2)
             val timeAView = view.findViewById<RadioGroup>(R.id.radioGroup)
 
             val alert = AlertDialog.Builder(this)
@@ -94,7 +94,7 @@ class MySQL(private val context: Context) : SQLiteOpenHelper(context, "abc.db", 
 
 data class Data(val code: Int, val date: String, val time: String, val timeA: Int, val id: Long)
 
-class MyAdapter(private val context: Context, private val dataList: List<Data>) : BaseAdapter() {
+class MyAdapter(private val context: Context, private val dataList: MutableList<Data>, val db:  SQLiteDatabase) : BaseAdapter() {
     override fun getCount(): Int {
         return dataList.size
     }
@@ -113,6 +113,45 @@ class MyAdapter(private val context: Context, private val dataList: List<Data>) 
         view.findViewById<TextView>(R.id.textView17).text = dataList[p0].date
         view.findViewById<TextView>(R.id.textView18).text = "${dataList[p0].time} $timeA"
         view.findViewById<TextView>(R.id.textView19).text = dataList[p0].code.toString()
+        view.findViewById<Button>(R.id.button5).setOnClickListener {
+            val view =  LayoutInflater.from(context).inflate(R.layout.adapter, null)
+            val alert = AlertDialog.Builder(context)
+                .setView(view)
+                .show()
+            val codeView = view.findViewById<EditText>(R.id.editTextTextPersonName4)
+            val dateView = view.findViewById<EditText>(R.id.editTextTextPersonName3)
+            val timeView = view.findViewById<EditText>(R.id.editTextTextPersonName2)
+            val timeAView = view.findViewById<RadioGroup>(R.id.radioGroup)
+            view.findViewById<TextView>(R.id.textView8).text = "編輯實聯制"
+            timeView.setText(dataList[p0].time)
+            dateView.setText(dataList[p0].date)
+            codeView.setText(dataList[p0].code.toString())
+            timeAView.check(dataList[p0].timeA)
+            alert.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+            view.findViewById<Button>(R.id.button9).setOnClickListener {
+                val code = codeView.text.toString().toInt()
+                val date = dateView.text.toString()
+                val time = timeView.text.toString()
+                val timeA = timeAView.checkedRadioButtonId
+                val values = ContentValues().apply {
+                    put("code", code)
+                    put("date", date)
+                    put("time", time)
+                    put("time_a", timeA)
+                }
+                Log.v("id", dataList[p0].id.toString())
+                val a = db.update("DATA", values, "${BaseColumns._ID} = ?", arrayOf(dataList[p0].id.toString()))
+                Log.v("count", a.toString())
+                dataList[p0] = Data(code, date, time, timeA, dataList[p0].id)
+                notifyDataSetChanged()
+                alert.dismiss()
+            }
+
+            view.findViewById<Button>(R.id.button10).setOnClickListener {
+                alert.dismiss()
+            }
+        }
         return view
     }
 }
