@@ -100,7 +100,7 @@ class MainActivity3 : AppCompatActivity() {
 
         searchView.doOnTextChanged { text, start, before, count ->
             val cur = if (searchView.text.isNotEmpty()) {
-                db.query("DATA", arrayOf("code", "time", "date", "time_a", BaseColumns._ID), "date = ?", arrayOf(searchView.text.toString()), null, null, null)
+                db.query("DATA", arrayOf("code", "time", "date", "time_a", BaseColumns._ID), "date LIKE '%${searchView.text}%'", null, null, null, null)
             } else {
                 db.query("DATA", arrayOf("code", "time", "date", "time_a", BaseColumns._ID), null, null, null, null, null)
             }
