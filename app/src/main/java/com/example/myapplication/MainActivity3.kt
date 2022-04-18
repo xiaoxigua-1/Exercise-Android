@@ -1,6 +1,5 @@
 package com.example.myapplication
 
-import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
@@ -10,15 +9,13 @@ import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.BaseColumns
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
-import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doOnTextChanged
 import java.util.*
 
@@ -26,6 +23,9 @@ class MainActivity3 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main3)
+        supportActionBar?.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM)
+        supportActionBar?.setCustomView(R.layout.action_bar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val db = MySQL(this).writableDatabase
         val dataList = mutableListOf<Data>()
@@ -98,7 +98,7 @@ class MainActivity3 : AppCompatActivity() {
             }
         }
 
-        searchView.doOnTextChanged { text, start, before, count ->
+        searchView.doOnTextChanged { _, _, _, _ ->
             val cur = if (searchView.text.isNotEmpty()) {
                 db.query("DATA", arrayOf("code", "time", "date", "time_a", BaseColumns._ID), "date LIKE '%${searchView.text}%'", null, null, null, null)
             } else {
