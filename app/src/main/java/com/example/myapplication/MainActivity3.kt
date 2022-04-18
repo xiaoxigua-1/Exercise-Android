@@ -120,6 +120,11 @@ class MainActivity3 : AppCompatActivity() {
             }
         }
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
+    }
 }
 
 class MySQL(private val context: Context) : SQLiteOpenHelper(context, "abcde.db", null, 1, null) {

@@ -6,6 +6,8 @@ import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
+import android.provider.BaseColumns
+import android.provider.SyncStateContract
 import android.view.LayoutInflater
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
@@ -48,7 +50,7 @@ internal fun updateAppWidget(
     appWidgetManager.updateAppWidget(appWidgetId, views)
 }
 
-class B(val context: Context) : RemoteViewsService() {
+class B(private val context: Context) : RemoteViewsService() {
     override fun onGetViewFactory(p0: Intent): RemoteViewsFactory {
         return A(context, p0)
     }
@@ -58,7 +60,20 @@ class A(private val context: Context, val intent: Intent) : RemoteViewsService.R
     private val dataList = mutableListOf<Data>()
 
     override fun onCreate() {
-        TODO("Not yet implemented")
+        val db = MySQL(context).writableDatabase
+
+        val cr = db.query("DATA", arrayOf("*"), null, null, null, null, null)
+        with(cr) {
+            while (cr.moveToNext()) {
+                val code = getInt(getColumnIndexOrThrow("code"))
+                val time = getString(getColumnIndexOrThrow("time"))
+                val date = getString(getColumnIndexOrThrow("date"))
+                val id = getString(getColumnIndexOrThrow(BaseColumns._ID))
+                val timeA = getInt(getColumnIndexOrThrow("time_a"))
+
+                dataList.add(Data(code, date, time, timeA, id))
+            }
+        }
     }
 
     override fun onDataSetChanged() {
