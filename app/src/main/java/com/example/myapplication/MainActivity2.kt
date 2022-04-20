@@ -1,17 +1,18 @@
 package com.example.myapplication
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
 
-class MainActivity : AppCompatActivity() {
+class MainActivity2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
         supportActionBar?.hide()
-        findViewById<Button>(R.id.button).setOnClickListener {
-            startActivity(Intent(this, MainActivity2::class.java))
+        setContentView(R.layout.activity_main2)
+        // back
+        findViewById<ImageButton>(R.id.imageButton).setOnClickListener {
+            onBackPressed()
         }
     }
 }
