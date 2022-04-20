@@ -23,7 +23,7 @@ class MainActivity3 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main3)
-        supportActionBar?.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM)
+        supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
         supportActionBar?.setCustomView(R.layout.action_bar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -79,18 +79,21 @@ class MainActivity3 : AppCompatActivity() {
                 val time = timeView.text.toString()
                 val timeA = timeAView.checkedRadioButtonId
                 val id = UUID.randomUUID().toString()
-
-                val values = ContentValues().apply {
-                    put("code", code)
-                    put("date", date)
-                    put("time", time)
-                    put("time_a", timeA)
-                    put(BaseColumns._ID, id)
+                if (date.isEmpty() || time.isEmpty()) {
+                    Toast.makeText(this, "abc", Toast.LENGTH_SHORT).show()
+                } else {
+                    val values = ContentValues().apply {
+                        put("code", code)
+                        put("date", date)
+                        put("time", time)
+                        put("time_a", timeA)
+                        put(BaseColumns._ID, id)
+                    }
+                    db.insert("DATA", null, values)
+                    dataList.add(Data(code, date, time, timeA, id))
+                    adapter.notifyDataSetChanged()
+                    alert.dismiss()
                 }
-                db.insert("DATA", null, values)
-                dataList.add(Data(code, date, time, timeA, id))
-                adapter.notifyDataSetChanged()
-                alert.dismiss()
             }
 
             view.findViewById<Button>(R.id.button10).setOnClickListener {
@@ -139,7 +142,7 @@ class MySQL(private val context: Context) : SQLiteOpenHelper(context, "abcde.db"
 
 data class Data(val code: Int, val date: String, val time: String, val timeA: Int, val id: String)
 
-class MyAdapter(private val context: Context, private val dataList: MutableList<Data>, val db:  SQLiteDatabase) : BaseAdapter() {
+class MyAdapter(private val context: Context, private val dataList: MutableList<Data>, private val db:  SQLiteDatabase) : BaseAdapter() {
     val clearList = mutableListOf<String>()
 
     override fun getCount(): Int {
