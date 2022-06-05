@@ -1,10 +1,8 @@
 package com.example.exercise
 
 import android.content.Context
-import android.util.Log
 import androidx.room.*
 import androidx.room.Database
-import androidx.sqlite.db.SupportSQLiteDatabase
 
 @Entity(tableName = "test")
 data class Test(
