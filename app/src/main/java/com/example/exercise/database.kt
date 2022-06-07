@@ -7,7 +7,7 @@ import androidx.room.Database
 @Entity(tableName = "test")
 data class Test(
     @PrimaryKey(autoGenerate = true)
-    val id: Long,
+    val id: Long?,
     @ColumnInfo(name = "username")
     val username: String
 )
@@ -17,7 +17,7 @@ interface TestDAO {
     @Query("SELECT * FROM TEST")
     fun selectAllTestTable(): List<Test>
 
-    @Insert()
+    @Insert
     fun insert(test: Test)
 }
 
@@ -31,7 +31,7 @@ abstract class MyDatabase : RoomDatabase() {
 
         fun createDatabase(context: Context): MyDatabase {
             return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(context.applicationContext, MyDatabase::class.java, "db")
+                val instance = Room.databaseBuilder(context.applicationContext, MyDatabase::class.java, "dbs")
                     .allowMainThreadQueries()
                     .build()
 
