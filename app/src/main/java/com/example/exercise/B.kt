@@ -18,7 +18,8 @@ class B : Fragment() {
         val view = inflater.inflate(R.layout.b, container, false)
 
         view.findViewById<Button>(R.id.button).setOnClickListener {
-            val username = view.findViewById<EditText>(R.id.editTextTextPersonName).text.toString()
+            val edit = view.findViewById<EditText>(R.id.editTextTextPersonName)
+            val username = edit.text.toString()
             database?.dao()?.insert(Test(null, username))
         }
 
