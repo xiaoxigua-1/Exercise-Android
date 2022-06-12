@@ -19,6 +19,9 @@ interface TestDAO {
 
     @Insert
     fun insert(test: Test)
+
+    @Delete
+    fun delete(data: Test)
 }
 
 @Database(version = 1, entities = [Test::class], exportSchema = false)

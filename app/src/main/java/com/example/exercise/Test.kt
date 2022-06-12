@@ -12,24 +12,22 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.exercise.databinding.ABinding
 
 class A : Fragment() {
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = ABinding.inflate(inflater, container, false)
         val view = binding.root
         val list = binding.list
-        val adapter = MyAdapter()
+        val database by lazy { context?.let { MyDatabase.createDatabase(it) } }
+        val adapter = MyAdapter(database)
         val callBack = ItemList(adapter)
         val itemTouch = ItemTouchHelper(callBack)
-        val database by lazy { context?.let { MyDatabase.createDatabase(it) } }
+
 
         database?.dao()?.selectAllTestTable()?.forEach {
-            for(i in 0..20) {
-                adapter.dataList.add(it.username)
-            }
+            adapter.dataList.add(it)
         }
 
         list.layoutManager = LinearLayoutManager(context)
@@ -41,13 +39,13 @@ class A : Fragment() {
 
 
 class AdapterHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    fun bind(data: String) {
-        itemView.findViewById<TextView>(R.id.textView).text = data
+    fun bind(data: Test) {
+        itemView.findViewById<TextView>(R.id.textView).text = data.username
     }
 }
 
-class MyAdapter : RecyclerView.Adapter<AdapterHolder>() {
-    val dataList = mutableListOf<String>()
+class MyAdapter(private val database: MyDatabase?) : RecyclerView.Adapter<AdapterHolder>() {
+    val dataList = mutableListOf<Test>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdapterHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -63,6 +61,7 @@ class MyAdapter : RecyclerView.Adapter<AdapterHolder>() {
     override fun getItemCount(): Int = dataList.size
 
     fun removeItem(pos: Int) {
+        database?.dao()?.delete(dataList[pos])
         dataList.removeAt(pos)
         notifyItemRemoved(pos)
     }

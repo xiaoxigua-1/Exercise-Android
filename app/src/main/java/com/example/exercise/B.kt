@@ -21,6 +21,7 @@ class B : Fragment() {
             val edit = view.findViewById<EditText>(R.id.editTextTextPersonName)
             val username = edit.text.toString()
             database?.dao()?.insert(Test(null, username))
+            edit.text.clear()
         }
 
         return view
