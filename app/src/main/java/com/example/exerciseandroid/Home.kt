@@ -1,8 +1,10 @@
 package com.example.exerciseandroid
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.Image
+import android.text.format.DateFormat
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -14,14 +16,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.exerciseandroid.ui.theme.ExerciseAndroidTheme
+import java.util.*
 
 data class Activity(val id: Int, val title: String, val image: Painter)
 
+data class NewPostData(val id: Int, val title: String, val route: String, val date: Date)
+
 @Composable
-fun Home() {
+fun Home(nav: NavController) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Spacer(modifier = Modifier.height(20.dp))
 
@@ -46,13 +54,13 @@ fun Home() {
 
         Spacer(modifier = Modifier.height(20.dp))
         ActivityInfo()
-        NewList()
+        Spacer(modifier = Modifier.height(20.dp))
+        NewList(nav)
         Info()
     }
 }
 
 @SuppressLint("CoroutineCreationDuringComposition")
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ActivityInfo() {
     val activityList = listOf(
@@ -73,15 +81,15 @@ fun ActivityInfo() {
     Column {
         LazyRow(
             modifier = Modifier
-                .fillMaxWidth(),
-
-            state = lazyListState,
-            userScrollEnabled = false
+                .fillMaxWidth()
+                .padding(vertical = 10.dp),
+            state = lazyListState
         ) {
             items(activityList) {
                 Card(
                     modifier = Modifier
-                        .widthIn(0.dp, 200.dp)
+                        .width(200.dp)
+                        .height(100.dp)
                         .padding(horizontal = 10.dp)
                 ) {
                     Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
@@ -90,13 +98,17 @@ fun ActivityInfo() {
                             contentDescription = null,
                             modifier = Modifier.fillMaxWidth()
                         )
-                        Text(it.title, modifier = Modifier.align(Alignment.BottomEnd))
+                        Text(
+                            it.title, modifier = Modifier
+                                .align(Alignment.BottomEnd)
+                                .padding(end = 20.dp)
+                        )
                     }
                 }
             }
         }
     }
-    
+
 }
 
 @Composable
@@ -105,14 +117,48 @@ fun Info() {
 }
 
 @Composable
-fun NewList() {
+fun NewList(nav: NavController) {
+    val newList = listOf(
+        NewPostData(1, "Hi", "1", Date()),
+        NewPostData(1, "Hi", "1", Date())
+    )
 
+
+    LazyColumn {
+        item {
+            Row {
+                Text("時間", textAlign = TextAlign.Center, modifier = Modifier.width(60.dp))
+                Spacer(modifier = Modifier.width(20.dp))
+                Text("標題", textAlign = TextAlign.Center)
+            }
+        }
+        items(newList) {
+            NewPost(it, nav)
+        }
+    }
 }
 
-@Preview
+@Composable
+fun NewPost(data: NewPostData, nav: NavController) {
+    val formatTime = DateFormat.format("yyyy/MM/dd", data.date).toString()
+
+    Row(modifier = Modifier
+        .padding(5.dp)
+        .clickable {
+            nav.navigate("new-post/${data.id}")
+        }) {
+        Text(formatTime, modifier = Modifier.width(60.dp))
+
+        Spacer(modifier = Modifier.width(20.dp))
+
+        Text(data.title)
+    }
+}
+
+@Preview(showBackground = true)
 @Composable
 fun PreviewHome() {
     ExerciseAndroidTheme {
-        Home()
+        Home(rememberNavController())
     }
 }

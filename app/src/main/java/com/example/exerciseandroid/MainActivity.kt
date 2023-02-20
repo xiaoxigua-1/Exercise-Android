@@ -80,7 +80,7 @@ fun TopBar(setOpenNav: () -> Unit) {
 @Composable
 fun MainScreenContent(nav: NavHostController) {
     NavHost(navController = nav, startDestination = "home") {
-        composable("home") { Home() }
+        composable("home") { Home(nav) }
         composable("list") { List() }
     }
 }
