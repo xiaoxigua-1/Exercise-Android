@@ -46,7 +46,7 @@ fun MainScreen() {
     val scope = rememberCoroutineScope()
     val navList = listOf(
         NavMenuData(Icons.Default.Home, "Home", "home"),
-        NavMenuData(Icons.Default.List, "List", "list")
+        NavMenuData(Icons.Default.List, "Info", "info")
     )
 
     Scaffold(
@@ -82,6 +82,7 @@ fun MainScreenContent(nav: NavHostController) {
     NavHost(navController = nav, startDestination = "home") {
         composable("home") { Home(nav) }
         composable("list") { List() }
+        composable("info") { InfoPage() }
     }
 }
 
