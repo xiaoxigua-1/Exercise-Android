@@ -1,4 +1,4 @@
-package com.example.exerciseandroid
+package com.example.exerciseandroid.components
 
 import androidx.compose.runtime.Composable
 

@@ -1,4 +1,4 @@
-package com.example.exerciseandroid
+package com.example.exerciseandroid.components
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
@@ -16,6 +16,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.exerciseandroid.R
 import com.example.exerciseandroid.ui.theme.ExerciseAndroidTheme
 
 data class TabInfo(val title: String, val content: @Composable () -> Unit)

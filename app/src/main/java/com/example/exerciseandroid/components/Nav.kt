@@ -1,4 +1,4 @@
-package com.example.exerciseandroid
+package com.example.exerciseandroid.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.exerciseandroid.R
 import com.example.exerciseandroid.ui.theme.ExerciseAndroidTheme
 import kotlinx.coroutines.launch
 
