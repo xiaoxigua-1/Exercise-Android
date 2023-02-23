@@ -17,7 +17,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.room.Room
+import com.example.exerciseandroid.util.Ticket
 import com.example.exerciseandroid.util.TicketDatabase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 data class TicketData(val name: String, val price: Int, val des: String)
 
@@ -42,6 +47,7 @@ fun Buy(db: TicketDatabase) {
     var buy: TicketData? by remember {
         mutableStateOf(null)
     }
+    val scope = rememberCoroutineScope()
 
     LazyColumn(modifier = Modifier.fillMaxWidth()) {
         items(ticketList) {
@@ -127,7 +133,21 @@ fun Buy(db: TicketDatabase) {
             },
             confirmButton = {
                 Button(onClick = {
-                    // buy
+                    runBlocking {
+                        launch(Dispatchers.IO) {
+                            db.ticketDao().insert(
+                                Ticket(
+                                    name = buy?.name ?: "",
+                                    price = buy?.price ?: 0,
+                                    userEmail = userInfo.email,
+                                    userName = userInfo.name,
+                                    userPhone = userInfo.phone
+                                )
+                            )
+                        }
+                    }
+
+                    buy = null
                 }) {
                     Text("購買")
                 }

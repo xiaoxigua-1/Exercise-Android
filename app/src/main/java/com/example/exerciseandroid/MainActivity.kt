@@ -88,7 +88,7 @@ fun MainScreenContent(nav: NavHostController) {
         LocalContext.current,
         TicketDatabase::class.java,
         "tick_database"
-    ).build()
+    ).allowMainThreadQueries().build()
 
     NavHost(navController = nav, startDestination = "home") {
         composable("home") { Home(nav) }

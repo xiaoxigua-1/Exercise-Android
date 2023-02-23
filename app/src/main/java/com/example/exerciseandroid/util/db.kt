@@ -3,7 +3,7 @@ package com.example.exerciseandroid.util
 import androidx.room.*
 
 @Entity
-data class Ticket(@PrimaryKey val id: Int, val name: String, val price: Int, val userName: String, val userEmail: String, val userPhone: String)
+data class Ticket(@PrimaryKey(autoGenerate = true) val id: Int = 0, val name: String, val price: Int, val userName: String, val userEmail: String, val userPhone: String)
 
 @Dao
 interface TicketDao {
